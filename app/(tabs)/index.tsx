@@ -1,12 +1,11 @@
-import { Text, View } from "react-native";
-
+import { posts } from "@/constants/dummy";
+import { FlatList, Text } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <View className="flex-1 items-center h-screen w-screen justify-center bg-blue">
-      <Text className="text-6xl  text-white font-normal">
-        Welcome to Nativewind!
-      </Text>
-    </View>
+    <FlatList
+      data={posts}
+      renderItem={({ item }) => <Text className="text-white bg-black"> {item.content} </Text>}
+    />
   );
 }
