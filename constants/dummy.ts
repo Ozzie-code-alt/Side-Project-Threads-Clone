@@ -4,6 +4,7 @@ export const users: User[] = [
   {
     id: "u1",
     name: "Alice Johnson",
+    tag: "@alice",
     email: "alice@example.com",
     bio: "Frontend developer and coffee lover.",
     avatarUrl: "https://randomuser.me/api/portraits/women/1.jpg",
@@ -11,6 +12,7 @@ export const users: User[] = [
   {
     id: "u2",
     name: "Bob Smith",
+    tag: "@bob",
     email: "bob@example.com",
     bio: "Backend wizard. Node.js enthusiast.",
     avatarUrl: "https://randomuser.me/api/portraits/men/2.jpg",
@@ -18,6 +20,7 @@ export const users: User[] = [
   {
     id: "u3",
     name: "Carol Lee",
+    tag: "@carol",
     email: "carol@example.com",
     bio: "UI/UX designer. Loves minimalism.",
     avatarUrl: "https://randomuser.me/api/portraits/women/3.jpg",
@@ -25,6 +28,7 @@ export const users: User[] = [
   {
     id: "u4",
     name: "David Kim",
+    tag: "@david",
     email: "david@example.com",
     bio: "Fullstack dev. React & TypeScript fan.",
     avatarUrl: "https://randomuser.me/api/portraits/men/4.jpg",
@@ -32,6 +36,7 @@ export const users: User[] = [
   {
     id: "u5",
     name: "Eva Green",
+    tag: "@eva",
     email: "eva@example.com",
     bio: "Mobile app developer. Flutter & React Native.",
     avatarUrl: "https://randomuser.me/api/portraits/women/5.jpg",
