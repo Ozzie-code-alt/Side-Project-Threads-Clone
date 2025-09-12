@@ -1,32 +1,25 @@
 import { Post } from "@/types";
-import React from "react";
+import React, { memo } from "react";
 import { Text, View } from "react-native";
 import { StyledImage } from "./StyledComponents";
+
 const PostListItem = ({ post }: { post: Post }) => {
   return (
-    <View
-      className="flex border   w-[90%]  gap-5"
-      style={{ flexDirection: "row" }}
-    >
+    <View className="w-full flex-row gap-4 px-4 py-3 border-b border-neutral-800">
       <StyledImage
-        className="h-[40px] w-[40px] border  rounded-full"
+        className="h-10 w-10 rounded-full border border-neutral-700 overflow-hidden"
         source={{ uri: post.author.avatarUrl }}
       />
-
-      <View className="flex flex-col gap-2">
-        <View style={{ flexDirection: "row" }} className="items-center  gap-3 w-full ">
-          <Text className="text-white font-bold text-[20px]">
+      <View className="flex-1">
+        <View className="flex-row items-center gap-2 flex-wrap">
+          <Text className="text-white font-semibold text-base">
             {post.author.name}
           </Text>
-          <Text className="text-gray-700 font-light text-[14px]">
+          <Text className="text-neutral-400 text-xs">
             {post.author.tag}
           </Text>
         </View>
-        <Text
-          className="text-white font-light text-[15px] max-w-[85%]"
-          numberOfLines={0}
-        >
-          {" "}
+        <Text className="text-neutral-200 text-sm mt-1">
           {post.content}
         </Text>
       </View>
@@ -34,4 +27,4 @@ const PostListItem = ({ post }: { post: Post }) => {
   );
 };
 
-export default PostListItem;
+export default memo(PostListItem);
