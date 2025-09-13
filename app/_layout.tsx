@@ -20,6 +20,7 @@ export default function RootLayout() {
     <SafeAreaProvider className=" max-w-screen  border border-blue-500 overflow-x-hidden h-screen">
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{headerShown:false}} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
