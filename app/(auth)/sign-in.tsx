@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase-connection";
-import { Link } from "expo-router";
+
+import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -11,7 +12,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
     supabase.auth.startAutoRefresh();
@@ -24,23 +24,30 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   async function signInWithEmail() {
     if (!email || !password) {
       Alert.alert("Error", "Please fill in all fields");
       return;
     }
+    try {
+      setLoading(true);
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
 
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
-
-    if (error) {
-      Alert.alert("Sign In Error", error.message);
+      if (error) {
+        Alert.alert("Sign In Error", error.message);
+        setLoading(false);
+        return;
+      }
+      router.replace("/(tabs)");
+      setLoading(false);
+    } catch (error) {
+      //TODO: Improve Error handling here - Logs
+      console.log("Error in Sign in", error);
     }
-    setLoading(false);
   }
 
   return (

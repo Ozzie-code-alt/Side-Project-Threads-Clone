@@ -1,17 +1,17 @@
-import { supabase } from "@/lib/supabase-connection";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/lib/supabase-connection";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { 
-  Alert, 
-  StyleSheet, 
-  View, 
-  Text, 
-  TextInput, 
-  TouchableOpacity,
+import {
   ActivityIndicator,
-  ScrollView 
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
-
 export default function Profile() {
   const { session, user } = useAuth();
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ export default function Profile() {
   const [website, setWebsite] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [updating, setUpdating] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     if (session) getProfile();
   }, [session]);
@@ -34,7 +34,7 @@ export default function Profile() {
         .select(`username, website, avatar_url`)
         .eq("id", session?.user.id)
         .single();
-        
+
       if (error && status !== 406) {
         throw error;
       }
@@ -88,6 +88,7 @@ export default function Profile() {
       if (error) {
         Alert.alert("Error", error.message);
       }
+      router.replace("/sign-in")
     } catch (error) {
       if (error instanceof Error) {
         Alert.alert("Error", error.message);
@@ -107,7 +108,7 @@ export default function Profile() {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Profile</Text>
-      
+
       {/* Email (read-only) */}
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Email</Text>
@@ -144,7 +145,7 @@ export default function Profile() {
       </View>
 
       {/* Update Button */}
-      <TouchableOpacity 
+      <TouchableOpacity
         style={[styles.button, updating && styles.buttonDisabled]}
         onPress={updateProfile}
         disabled={updating}
@@ -157,11 +158,13 @@ export default function Profile() {
       </TouchableOpacity>
 
       {/* Sign Out Button */}
-      <TouchableOpacity 
+      <TouchableOpacity
         style={[styles.button, styles.signOutButton]}
         onPress={signOut}
       >
-        <Text style={[styles.buttonText, styles.signOutButtonText]}>Sign Out</Text>
+        <Text style={[styles.buttonText, styles.signOutButtonText]}>
+          Sign Out
+        </Text>
       </TouchableOpacity>
 
       {/* User Info */}
@@ -169,7 +172,10 @@ export default function Profile() {
         <Text style={styles.userInfoTitle}>Account Information</Text>
         <Text style={styles.userInfoText}>User ID: {user?.id}</Text>
         <Text style={styles.userInfoText}>
-          Created: {user?.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}
+          Created:{" "}
+          {user?.created_at
+            ? new Date(user.created_at).toLocaleDateString()
+            : "N/A"}
         </Text>
       </View>
     </ScrollView>
@@ -179,88 +185,88 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 20,
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   loadingText: {
     marginTop: 10,
     fontSize: 16,
-    color: '#666',
+    color: "#666",
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 30,
     marginTop: 20,
-    color: '#333',
+    color: "#333",
   },
   inputContainer: {
     marginBottom: 20,
   },
   label: {
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
     marginBottom: 8,
-    color: '#333',
+    color: "#333",
   },
   input: {
     height: 50,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     borderRadius: 8,
     paddingHorizontal: 15,
     fontSize: 16,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: "#f9f9f9",
   },
   disabledInput: {
-    backgroundColor: '#e9ecef',
-    color: '#6c757d',
+    backgroundColor: "#e9ecef",
+    color: "#6c757d",
   },
   button: {
     height: 50,
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
     borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 20,
   },
   buttonDisabled: {
-    backgroundColor: '#ccc',
+    backgroundColor: "#ccc",
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   signOutButton: {
-    backgroundColor: '#FF3B30',
+    backgroundColor: "#FF3B30",
     marginTop: 30,
   },
   signOutButtonText: {
-    color: 'white',
+    color: "white",
   },
   userInfo: {
     marginTop: 40,
     padding: 20,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: "#f8f9fa",
     borderRadius: 8,
   },
   userInfoTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
-    color: '#333',
+    color: "#333",
   },
   userInfoText: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
     marginBottom: 5,
   },
 });
