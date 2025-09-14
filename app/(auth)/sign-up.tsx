@@ -1,21 +1,20 @@
 import { supabase } from "@/lib/supabase-connection";
+import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
-import { 
-  Alert, 
-  StyleSheet, 
-  View, 
-  Text, 
-  TextInput, 
+import {
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  Text,
+  TextInput,
   TouchableOpacity,
-  ActivityIndicator 
+  View,
 } from "react-native";
-import { Link } from "expo-router";
-
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   async function signUpWithEmail() {
     if (!email || !password) {
       Alert.alert("Error", "Please fill in all fields");
@@ -33,16 +32,22 @@ export default function SignUp() {
 
     if (error) {
       Alert.alert("Sign Up Error", error.message);
+      return;
     } else if (!session) {
-      Alert.alert("Check Email", "Please check your inbox for email verification!");
+      Alert.alert(
+        "Check Email",
+        "Please check your inbox for email verification!"
+      );
+      return;
     }
+    router.replace("/(tabs)");
     setLoading(false);
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create Account</Text>
-      
+
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Email</Text>
         <TextInput
@@ -55,7 +60,7 @@ export default function SignUp() {
           autoComplete="email"
         />
       </View>
-      
+
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Password</Text>
         <TextInput
@@ -67,8 +72,8 @@ export default function SignUp() {
           autoCapitalize="none"
         />
       </View>
-      
-      <TouchableOpacity 
+
+      <TouchableOpacity
         style={[styles.button, loading && styles.buttonDisabled]}
         onPress={signUpWithEmail}
         disabled={loading}
@@ -79,7 +84,7 @@ export default function SignUp() {
           <Text style={styles.buttonText}>Sign Up</Text>
         )}
       </TouchableOpacity>
-      
+
       <Link href="/(auth)/sign-in" style={styles.linkContainer}>
         <Text style={styles.linkText}>Already have an account? Sign in</Text>
       </Link>
@@ -90,58 +95,58 @@ export default function SignUp() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 40,
-    color: '#333',
+    color: "#333",
   },
   inputContainer: {
     marginBottom: 20,
   },
   label: {
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
     marginBottom: 8,
-    color: '#333',
+    color: "#333",
   },
   input: {
     height: 50,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     borderRadius: 8,
     paddingHorizontal: 15,
     fontSize: 16,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: "#f9f9f9",
   },
   button: {
     height: 50,
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
     borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 20,
   },
   buttonDisabled: {
-    backgroundColor: '#ccc',
+    backgroundColor: "#ccc",
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   linkContainer: {
     marginTop: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   linkText: {
-    color: '#007AFF',
+    color: "#007AFF",
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
