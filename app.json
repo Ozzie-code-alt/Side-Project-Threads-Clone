@@ -9,14 +9,16 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.threadscloneapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/threads-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.anonymous.threadscloneapp"
     },
     "web": {
       "bundler": "metro",
@@ -35,7 +37,15 @@
         }
       ],
       "expo-font",
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.966304533046-4ib27ejl2kv6e08h42g74mppj9a9g858",
+          "reservedClientId": "966304533046-4ib27ejl2kv6e08h42g74mppj9a9g858.apps.googleusercontent.com"
+        }
+      ],
+      "./plugins/withGoogleInfoPlist"
     ],
     "experiments": {
       "typedRoutes": true

@@ -1,3 +1,4 @@
+import { handleGoogleSignIn } from "@/components/Auth/GoogleAuth";
 import { supabase } from "@/lib/supabase-connection";
 
 import { Link, useRouter } from "expo-router";
@@ -79,6 +80,17 @@ export default function SignIn() {
         />
       </View>
 
+      <TouchableOpacity
+        style={[styles.button, loading && styles.buttonDisabled]}
+        onPress={() => {
+          handleGoogleSignIn(router);
+        }}
+        disabled={loading}
+      >
+        <Text className="text-[16.427px] text-[#4D644D]">
+          Continue with Google
+        </Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={[styles.button, loading && styles.buttonDisabled]}
         onPress={signInWithEmail}
