@@ -1,6 +1,6 @@
 // import { handleGoogleSignIn } from "@/components/Auth/GoogleAuth";
 import { supabase } from "@/lib/supabase-connection";
-
+import { ImageBackground } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -52,7 +52,10 @@ export default function SignIn() {
   }
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={require("../../assets/images/LoginScreen.png")}
+      style={styles.container}
+    >
       <Text style={styles.title}>Welcome Back</Text>
 
       <View style={styles.inputContainer}>
@@ -95,7 +98,7 @@ export default function SignIn() {
       <Link href="/(auth)/sign-up" style={styles.linkContainer}>
         <Text style={styles.linkText}>Dont have an account? Sign up</Text>
       </Link>
-    </View>
+    </ImageBackground>
   );
 }
 
@@ -104,7 +107,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 20,
-    backgroundColor: "white",
   },
   title: {
     fontSize: 28,
